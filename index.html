@@ -3,19 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Admit Card Portal</title>
+    <title>Admit Card Portal - Pro</title>
     <style>
-        /* Ultra Premium Glassmorphism UI */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-family: 'Segoe UI', system-ui, sans-serif;
         }
 
-        /* Animated Gradient Background */
         body {
-            background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #1a2a6c);
+            background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #0f2027);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
             min-height: 100vh;
@@ -32,85 +30,85 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Glassmorphism Container */
         .container {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             width: 100%;
-            max-width: 400px;
-            padding: 40px 30px;
+            max-width: 420px;
+            padding: 35px 25px;
             border-radius: 24px;
-            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
             text-align: center;
-        }
-
-        .header-icon {
-            font-size: 45px;
-            margin-bottom: 10px;
-            text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
         }
 
         .header h2 {
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
+            color: #00d2ff;
             letter-spacing: 1px;
+            margin-top: 10px;
         }
 
         .header p {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 35px;
-        }
-
-        .input-group {
-            text-align: left;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.7);
             margin-bottom: 25px;
         }
 
-        .input-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 14px;
-            font-weight: 500;
-            color: rgba(255, 255, 255, 0.9);
-            letter-spacing: 0.5px;
+        .input-group {
+            margin-bottom: 20px;
         }
 
         .input-group input {
             width: 100%;
             padding: 16px 20px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 14px;
             font-size: 16px;
-            color: #fff;
+            color: #00d2ff;
             outline: none;
             transition: all 0.3s ease;
-        }
-
-        .input-group input::placeholder {
-            color: rgba(255, 255, 255, 0.5);
+            text-align: center;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
         .input-group input:focus {
             border-color: #00d2ff;
-            background: rgba(255, 255, 255, 0.15);
             box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
+            background: rgba(0, 0, 0, 0.5);
         }
 
-        .error-msg {
-            color: #ff6b6b;
-            font-size: 13px;
-            margin-top: 8px;
-            display: none;
-            font-weight: 500;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        /* Recent Searches UI */
+        .recent-box {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 20px;
         }
 
-        /* Modern Button */
+        .recent-chip {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #fff;
+        }
+
+        .recent-chip:hover {
+            background: rgba(0, 210, 255, 0.2);
+            border-color: #00d2ff;
+        }
+
         .btn {
             width: 100%;
             padding: 16px;
@@ -118,122 +116,132 @@
             color: white;
             border: none;
             border-radius: 14px;
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 8px 25px rgba(58, 123, 213, 0.4);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            position: relative;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 30px rgba(58, 123, 213, 0.5);
+            margin-bottom: 5px;
         }
 
         .btn:active {
-            transform: translateY(1px);
-        }
-
-        /* Loading Spinner inside button */
-        .spinner {
-            display: none;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            border-top-color: #fff;
-            animation: spin 1s ease-in-out infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+            transform: scale(0.96);
         }
 
         .footer {
-            margin-top: 35px;
-            font-size: 13px;
+            margin-top: 25px;
+            font-size: 12px;
             color: rgba(255, 255, 255, 0.6);
         }
 
-        /* Developer Badge */
         .dev-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(0, 0, 0, 0.2);
-            padding: 6px 16px;
+            display: inline-block;
+            background: rgba(0, 210, 255, 0.15);
+            padding: 5px 15px;
             border-radius: 20px;
             margin-top: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(0, 210, 255, 0.3);
             color: #00d2ff;
-            font-weight: 600;
-            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 1px;
         }
     </style>
 </head>
 <body>
 
+    <!-- Hidden Audio for App Sound -->
+    <audio id="clickSound" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" preload="auto"></audio>
+
     <div class="container">
         <div class="header">
-            <div class="header-icon">🎓</div>
-            <h2>Admit Card Portal</h2>
-            <p>Fast & Secure Download</p>
+            <h2>🎓 Admit Card Pro</h2>
+            <p>Fast • Secure • Smart</p>
         </div>
 
         <div class="input-group">
-            <label for="enrollment">Enrollment Number</label>
-            <input type="text" id="enrollment" placeholder="Enter Enrollment No." autocomplete="off" spellcheck="false">
-            <div class="error-msg" id="error">⚠️ Please enter a valid enrollment number.</div>
+            <input type="text" id="enrollment" placeholder="ENTER ENROLLMENT NO" autocomplete="off" spellcheck="false" maxlength="20">
         </div>
 
-        <button class="btn" id="downloadBtn" onclick="processDownload()">
-            <span id="btnText">Download Admit Card 📥</span>
-            <div class="spinner" id="spinner"></div>
-        </button>
+        <!-- Recent Searches Chips -->
+        <div class="recent-box" id="recentBox">
+            <!-- Chips will appear here automatically via JavaScript -->
+        </div>
+
+        <button class="btn" id="downloadBtn" onclick="processDownload()">Download Now 🚀</button>
 
         <div class="footer">
-            Developed & Designed by <br>
+            Designed & Developed by <br>
             <div class="dev-badge">👨‍💻 Nikhil Kumar</div>
         </div>
     </div>
 
     <script>
+        const clickSound = document.getElementById("clickSound");
+
+        // Load Recent Searches when page opens
+        window.onload = function() {
+            loadRecentSearches();
+        }
+
+        function loadRecentSearches() {
+            let history = JSON.parse(localStorage.getItem("bteup_history")) || [];
+            let recentBox = document.getElementById("recentBox");
+            recentBox.innerHTML = ""; // clear old
+            
+            if(history.length > 0) {
+                history.forEach(num => {
+                    let chip = document.createElement("div");
+                    chip.className = "recent-chip";
+                    chip.innerText = "🕒 " + num;
+                    chip.onclick = function() {
+                        document.getElementById("enrollment").value = num;
+                        playClickSound();
+                    };
+                    recentBox.appendChild(chip);
+                });
+            }
+        }
+
+        function playClickSound() {
+            clickSound.currentTime = 0;
+            // Catch error if browser blocks autoplay before user interaction
+            clickSound.play().catch(e => console.log("Sound waiting for user interaction"));
+        }
+
         function processDownload() {
-            let enrollNum = document.getElementById("enrollment").value.trim();
-            let errorText = document.getElementById("error");
-            let btnText = document.getElementById("btnText");
-            let spinner = document.getElementById("spinner");
+            playClickSound(); // Play sound effect
+            
+            let enrollNum = document.getElementById("enrollment").value.trim().toUpperCase();
             let btn = document.getElementById("downloadBtn");
 
-            if (enrollNum === "") {
-                errorText.style.display = "block";
-            } else {
-                errorText.style.display = "none";
-                
-                // UI changes to show processing/fast loading effect
-                btnText.innerText = "Processing...";
-                spinner.style.display = "block";
-                btn.style.opacity = "0.8";
-                btn.style.pointerEvents = "none"; // Prevent double clicks
-                
-                // Simulating a tiny delay for smooth UI feel before redirecting
-                setTimeout(function() {
-                    let finalUrl = "https://bteup.ac.in/ESeva/Student/VerificationCard.aspx?EnrollNumber=" + enrollNum + "#";
-                    window.open(finalUrl, "_blank");
-                    
-                    // Reset button after opening
-                    btnText.innerText = "Download Admit Card 📥";
-                    spinner.style.display = "none";
-                    btn.style.opacity = "1";
-                    btn.style.pointerEvents = "auto";
-                    document.getElementById("enrollment").value = ""; // Clear input
-                }, 600); // 0.6 seconds UI delay
+            if (enrollNum.length < 5) {
+                alert("Please enter a valid Enrollment Number!");
+                return;
             }
+
+            // Save to History (Local Storage)
+            let history = JSON.parse(localStorage.getItem("bteup_history")) || [];
+            if (!history.includes(enrollNum)) {
+                history.unshift(enrollNum); // Add to start
+                if(history.length > 3) history.pop(); // Keep only last 3
+                localStorage.setItem("bteup_history", JSON.stringify(history));
+                loadRecentSearches(); // Update UI
+            }
+
+            // Button Animation
+            btn.innerHTML = "Processing... ⏳";
+            
+            setTimeout(function() {
+                // Generate Final Link
+                let finalUrl = "https://bteup.ac.in/ESeva/Student/VerificationCard.aspx?EnrollNumber=" + enrollNum + "#";
+                
+                // Open Link
+                window.open(finalUrl, "_blank");
+                
+                // Reset Download Button
+                btn.innerHTML = "Download Another 🔄";
+                
+            }, 600); // 0.6 sec delay for premium feel
         }
     </script>
 
