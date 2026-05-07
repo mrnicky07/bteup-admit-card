@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Admit Card Portal</title>
+    <style>
+        /* Ultra Premium Glassmorphism UI */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        /* Animated Gradient Background */
+        body {
+            background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #1a2a6c);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #fff;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Glassmorphism Container */
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 100%;
+            max-width: 400px;
+            padding: 40px 30px;
+            border-radius: 24px;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .header-icon {
+            font-size: 45px;
+            margin-bottom: 10px;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .header h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 35px;
+        }
+
+        .input-group {
+            text-align: left;
+            margin-bottom: 25px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.9);
+            letter-spacing: 0.5px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 14px;
+            font-size: 16px;
+            color: #fff;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .input-group input:focus {
+            border-color: #00d2ff;
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
+        }
+
+        .error-msg {
+            color: #ff6b6b;
+            font-size: 13px;
+            margin-top: 8px;
+            display: none;
+            font-weight: 500;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+
+        /* Modern Button */
+        .btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(58, 123, 213, 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(58, 123, 213, 0.5);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        /* Loading Spinner inside button */
+        .spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .footer {
+            margin-top: 35px;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Developer Badge */
+        .dev-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 6px 16px;
+            border-radius: 20px;
+            margin-top: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #00d2ff;
+            font-weight: 600;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <div class="header-icon">🎓</div>
+            <h2>Admit Card Portal</h2>
+            <p>Fast & Secure Download</p>
+        </div>
+
+        <div class="input-group">
+            <label for="enrollment">Enrollment Number</label>
+            <input type="text" id="enrollment" placeholder="Enter Enrollment No." autocomplete="off" spellcheck="false">
+            <div class="error-msg" id="error">⚠️ Please enter a valid enrollment number.</div>
+        </div>
+
+        <button class="btn" id="downloadBtn" onclick="processDownload()">
+            <span id="btnText">Download Admit Card 📥</span>
+            <div class="spinner" id="spinner"></div>
+        </button>
+
+        <div class="footer">
+            Developed & Designed by <br>
+            <div class="dev-badge">👨‍💻 Nikhil Kumar</div>
+        </div>
+    </div>
+
+    <script>
+        function processDownload() {
+            let enrollNum = document.getElementById("enrollment").value.trim();
+            let errorText = document.getElementById("error");
+            let btnText = document.getElementById("btnText");
+            let spinner = document.getElementById("spinner");
+            let btn = document.getElementById("downloadBtn");
+
+            if (enrollNum === "") {
+                errorText.style.display = "block";
+            } else {
+                errorText.style.display = "none";
+                
+                // UI changes to show processing/fast loading effect
+                btnText.innerText = "Processing...";
+                spinner.style.display = "block";
+                btn.style.opacity = "0.8";
+                btn.style.pointerEvents = "none"; // Prevent double clicks
+                
+                // Simulating a tiny delay for smooth UI feel before redirecting
+                setTimeout(function() {
+                    let finalUrl = "https://bteup.ac.in/ESeva/Student/VerificationCard.aspx?EnrollNumber=" + enrollNum + "#";
+                    window.open(finalUrl, "_blank");
+                    
+                    // Reset button after opening
+                    btnText.innerText = "Download Admit Card 📥";
+                    spinner.style.display = "none";
+                    btn.style.opacity = "1";
+                    btn.style.pointerEvents = "auto";
+                    document.getElementById("enrollment").value = ""; // Clear input
+                }, 600); // 0.6 seconds UI delay
+            }
+        }
+    </script>
+
+</body>
+</html>
