@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Admit Card Portal - Pro</title>
+    <title>Admit & Verification Portal - Pro</title>
     <style>
         * {
             box-sizing: border-box;
@@ -107,21 +107,36 @@
         .recent-chip:hover {
             background: rgba(0, 210, 255, 0.2);
             border-color: #00d2ff;
+            box-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
+        }
+
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 5px;
         }
 
         .btn {
             width: 100%;
             padding: 16px;
-            background: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
             color: white;
             border: none;
             border-radius: 14px;
-            font-size: 17px;
+            font-size: 16px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
+        }
+
+        .btn-admit {
+            background: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
             box-shadow: 0 8px 25px rgba(58, 123, 213, 0.4);
-            margin-bottom: 5px;
+        }
+
+        .btn-verify {
+            background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+            box-shadow: 0 8px 25px rgba(255, 65, 108, 0.4);
         }
 
         .btn:active {
@@ -129,21 +144,29 @@
         }
 
         .footer {
-            margin-top: 25px;
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.6);
+            margin-top: 30px;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.8);
         }
 
+        /* Simple & Clean Dev Badge */
         .dev-badge {
             display: inline-block;
-            background: rgba(0, 210, 255, 0.15);
-            padding: 5px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 6px 18px;
             border-radius: 20px;
-            margin-top: 8px;
-            border: 1px solid rgba(0, 210, 255, 0.3);
+            margin-top: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             color: #00d2ff;
-            font-weight: bold;
+            font-weight: 600;
             letter-spacing: 1px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .dev-badge:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #00d2ff;
         }
     </style>
 </head>
@@ -154,8 +177,8 @@
 
     <div class="container">
         <div class="header">
-            <h2>🎓 Admit Card Pro</h2>
-            <p>Fast • Secure • Smart</p>
+            <h2>🎓 Student Portal Pro</h2>
+            <p>Admit Card & Verification</p>
         </div>
 
         <div class="input-group">
@@ -167,7 +190,10 @@
             <!-- Chips will appear here automatically via JavaScript -->
         </div>
 
-        <button class="btn" id="downloadBtn" onclick="processDownload()">Download Now 🚀</button>
+        <div class="btn-group">
+            <button class="btn btn-admit" id="btnAdmit" onclick="processDownload('admit')">Download Admit Card 🎓</button>
+            <button class="btn btn-verify" id="btnVerify" onclick="processDownload('verify')">Verification Card 📄</button>
+        </div>
 
         <div class="footer">
             Designed & Developed by <br>
@@ -208,11 +234,12 @@
             clickSound.play().catch(e => console.log("Sound waiting for user interaction"));
         }
 
-        function processDownload() {
+        function processDownload(type) {
             playClickSound(); // Play sound effect
             
             let enrollNum = document.getElementById("enrollment").value.trim().toUpperCase();
-            let btn = document.getElementById("downloadBtn");
+            let btn = type === 'admit' ? document.getElementById("btnAdmit") : document.getElementById("btnVerify");
+            let originalText = btn.innerHTML;
 
             if (enrollNum.length < 5) {
                 alert("Please enter a valid Enrollment Number!");
@@ -232,14 +259,19 @@
             btn.innerHTML = "Processing... ⏳";
             
             setTimeout(function() {
-                // Generate Final Link
-                let finalUrl = "https://bteup.ac.in/ESeva/Student/AdmitCard.aspx?EnrollNumber=" + enrollNum + "#";
+                // EXPLICIT LINKS
+                let finalUrl = "";
+                if (type === 'admit') {
+                    finalUrl = "https://bteup.ac.in/ESeva/Student/AdmitCard.aspx?EnrollNumber=" + enrollNum;
+                } else if (type === 'verify') {
+                    finalUrl = "https://bteup.ac.in/ESeva/Student/VerificationCard.aspx?EnrollNumber=" + enrollNum;
+                }
                 
                 // Open Link
                 window.open(finalUrl, "_blank");
                 
-                // Reset Download Button
-                btn.innerHTML = "Download Another 🔄";
+                // Reset Button
+                btn.innerHTML = originalText;
                 
             }, 600); // 0.6 sec delay for premium feel
         }
